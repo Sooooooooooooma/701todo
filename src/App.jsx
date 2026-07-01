@@ -45,66 +45,37 @@ function App() {
   };
 
   return (
-    <div className="app">
-      <div className="todo-card">
-        <h1 className="todo-title">TodoList</h1>
+    <>
+      <h1>TodoList</h1>
+      <input
+        className="input"
+        placeholder="ここに文字を入力してください"
+        value={text}
+        onChange={handleInput}
+      />
+      <button onClick={handleAdd}>追加</button>
 
-        <div className="todo-form">
-          <input
-            className="input"
-            placeholder="ここに文字を入力してください"
-            value={text}
-            onChange={handleInput}
-          />
-          <button className="btn btn-primary" onClick={handleAdd}>
-            追加
-          </button>
-        </div>
-
-        <ul className="todo-list">
-          {todos.map((todo, index) => {
-            return (
-              <li key={index} className="todo-item">
-                {editIndex === index ? (
-                  <div className="todo-edit">
-                    <input
-                      className="input"
-                      value={editText}
-                      onChange={handleEditInput}
-                    />
-                    <button className="btn btn-primary" onClick={handleSave}>
-                      保存
-                    </button>
-                  </div>
-                ) : (
-                  <>
-                    <span className="todo-text">{todo}</span>
-                    <div className="todo-actions">
-                      <button
-                        className="btn btn-secondary"
-                        onClick={() => handleEdit(index)}
-                      >
-                        編集
-                      </button>
-                      <button
-                        className="btn btn-danger"
-                        onClick={() => handleDelete(index)}
-                      >
-                        削除
-                      </button>
-                    </div>
-                  </>
-                )}
-              </li>
-            );
-          })}
-        </ul>
-
-        {todos.length === 0 && (
-          <p className="todo-empty">タスクがありません。追加してみましょう。</p>
-        )}
-      </div>
-    </div>
+      <ul>
+        {todos.map((todo, index) => {
+          return (
+            <li key={index}>
+              {editIndex === index ? (
+                <>
+                  <input value={editText} onChange={handleEditInput} />
+                  <button onClick={handleSave}>保存</button>
+                </>
+              ) : (
+                <>
+                  {todo}
+                  <button onClick={() => handleDelete(index)}>削除</button>
+                  <button onClick={() => handleEdit(index)}>編集</button>
+                </>
+              )}
+            </li>
+          );
+        })}
+      </ul>
+    </>
   );
 }
 
